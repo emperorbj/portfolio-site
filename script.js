@@ -54,3 +54,46 @@ const typed = new Typed('.multiple-text',{
     backDelay: 1000,
     loop:true
 })
+
+
+
+const form = document.querySelector('form');
+
+const fullName = document.getElementById('fullname');
+const email = document.getElementById('email');
+const phoneNumber = document.getElementById('number');
+const subject = document.getElementById('mail-subject');
+const message = document.getElementById('message')
+
+
+function sendEmail(){
+
+    const bodyMessage = `Full Name: ${fullName.value}<br> Email: ${email.value}<br> Phone Number: ${phoneNumber.value}
+    <br> Message: ${message.value}`;
+    Email.send({
+        SecureToken: "942aacbf-72fc-47e9-b68e-af317148821e",
+        // Host : "smtp.elasticemail.com",
+        // Username : "cwaku96@gmail.com",
+        // Password : "C60CA96774B4CCB759AEA862BDB70EC4E1D7",
+        To : 'cwaku96@gmail.com',
+        From : "cwaku96@gmail.com",
+        Subject : subject.value,
+        Body : bodyMessage
+    }).then(
+        message => {
+            if (message == 'OK') {
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Message sent successfully",
+                    icon: "success"
+                });
+            }
+        }
+    );
+}
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    sendEmail()
+})
